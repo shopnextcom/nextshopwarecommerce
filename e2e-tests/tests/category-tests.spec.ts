@@ -15,16 +15,25 @@ test.describe.only('Category pagination', () => {
   });
 
   test('Category pagination verification', async ({ page }) => {
-    // await homePage.visitMainPage();
+    const responsePromise = page.waitForResponse(
+      (response) => response.url().includes('/search/Products?page=2') && response.status() === 200
+    );
     await homePage.openCateoryPage();
     await categoryPage.changePage();
+    await responsePromise;
+    await page.waitForLoadState('networkidle');
     await expect(page).toHaveURL('/search/Products?page=2');
   });
 
   test('Category filters verification', async ({ page }) => {
-    //  await homePage.visitMainPage();
+    const responsePromise = page.waitForResponse(
+      (response) =>
+        response.url().includes('/search/Products?sort=price-desc') && response.status() === 200
+    );
     await homePage.openCateoryPage();
     await categoryPage.checkCategoryFilter();
+    await responsePromise;
+    await page.waitForLoadState('networkidle');
     await expect(page).toHaveURL('/search/Products?sort=price-desc');
   });
 });
