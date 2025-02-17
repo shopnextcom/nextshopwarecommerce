@@ -2358,7 +2358,7 @@ export type Schemas = {
     label?: string;
     modified?: boolean;
     modifiedByApp?: boolean;
-    payload?: components['schemas']['ProductJsonApi'];
+    payload?: components['schemas']['Product'];
     price?: {
       /** @enum {string} */
       apiAlias: 'calculated_price';

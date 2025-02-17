@@ -16,7 +16,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
-
+      - name: Install corepack
+        run: npm add -g corepack
       - run: corepack enable
       - run: pnpm --version
       - uses: actions/setup-node@v3

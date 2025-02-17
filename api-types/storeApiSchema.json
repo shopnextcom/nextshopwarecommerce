@@ -11816,7 +11816,7 @@
           "label": { "type": "string" },
           "modified": { "type": "boolean" },
           "modifiedByApp": { "type": "boolean" },
-          "payload": { "$ref": "#/components/schemas/ProductJsonApi" },
+          "payload": { "$ref": "#/components/schemas/Product" },
           "price": {
             "type": "object",
             "properties": {
