@@ -93,13 +93,12 @@ export default function CartModal() {
                         a.merchandise.product.title.localeCompare(b.merchandise.product.title)
                       )
                       ?.map((item, i) => {
-                        console.log('Item', item.merchandise.selectedOptions);
                         const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
                         if (item.merchandise.selectedOptions) {
                           item.merchandise.selectedOptions.forEach(({ name, value }) => {
                             if (value !== DEFAULT_OPTION) {
-                              merchandiseSearchParams[name.toLowerCase()] = value;
+                              merchandiseSearchParams[name?.toLowerCase()] = value;
                             }
                           });
                         }
@@ -140,6 +139,17 @@ export default function CartModal() {
                                     <span className="leading-tight">
                                       {item.merchandise.product.title}
                                     </span>
+                                    {item.merchandise.selectedOptions?.length
+                                      ? item.merchandise.selectedOptions.map((option) => (
+                                          <p
+                                            key={option.name}
+                                            className="text-xs text-neutral-500 dark:text-neutral-400"
+                                          >
+                                            {option.name}: {option.value}
+                                          </p>
+                                        ))
+                                      : null}
+
                                     {item.merchandise.title !==
                                     item.merchandise.product.seo.title ? (
                                       <p className="text-sm text-neutral-500 dark:text-neutral-400">

@@ -377,7 +377,11 @@ function transformLineItem(resLineItem: Schemas['LineItem']): CartItem {
     merchandise: {
       id: resLineItem.referencedId ?? '',
       title: resLineItem.label ?? '',
-      selectedOptions: [],
+      selectedOptions:
+        resLineItem.payload?.options?.map((option) => ({
+          name: option?.group.toString() ?? '',
+          value: option.option
+        })) || [],
       product: {
         handle: resLineItem.referencedId ?? '',
         description: resLineItem.description ?? '',
