@@ -8,7 +8,7 @@ import { ProductProvider } from "components/product/product-context";
 import { ProductDescription } from "components/product/product-description";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopware";
-import { Image } from "lib/shopware/types";
+import type { Image } from "lib/shopware/types";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -130,7 +130,6 @@ async function RelatedProducts({ id }: { id: string }) {
             <Link
               className="relative h-full w-full"
               prefetch={true}
-              role="link"
               href={`/product/${product.path}`}
             >
               <GridTileImage
