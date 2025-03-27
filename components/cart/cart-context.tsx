@@ -221,12 +221,29 @@ export function useCart() {
   }
 
   const initialCart = use(context.cartPromise);
-  const [optimisticCart] = useOptimistic(initialCart, cartReducer);
+  const [optimisticCart, updateOptimisticCart] = useOptimistic(
+    initialCart,
+    cartReducer,
+  );
+
+  const updateCartItem = (merchandiseId: string, updateType: UpdateType) => {
+    updateOptimisticCart({
+      type: "UPDATE_ITEM",
+      payload: { merchandiseId, updateType },
+    });
+  };
+
+  const addCartItem = (variant: ProductVariant, product: Product) => {
+    updateOptimisticCart({ type: "ADD_ITEM", payload: { variant, product } });
+  };
 
   return useMemo(
     () => ({
       cart: optimisticCart,
+      updateCartItem,
+      addCartItem,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [optimisticCart],
   );
 }

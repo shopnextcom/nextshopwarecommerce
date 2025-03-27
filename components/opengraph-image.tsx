@@ -15,9 +15,6 @@ export default async function OpengraphImage(
     ...props,
   };
 
-  const file = await readFile(join(process.cwd(), "./fonts/Inter-Bold.ttf"));
-  const font = Uint8Array.from(file).buffer;
-
   return new ImageResponse(
     (
       <div tw="flex h-full w-full flex-col items-center justify-center bg-black">
@@ -33,7 +30,11 @@ export default async function OpengraphImage(
       fonts: [
         {
           name: "Inter",
-          data: font,
+          data: await fetch(
+            new URL("../fonts/Inter-Bold.ttf", import.meta.url),
+          ).then((res) => res.arrayBuffer()),
+          style: "normal",
+          weight: 700,
         },
       ],
     },

@@ -30,13 +30,11 @@ export function VariantSelector({
   const combinations: Combination[] = variants.map((variant) => ({
     id: variant.id,
     availableForSale: variant.availableForSale,
-    ...variant.selectedOptions.reduce(
-      (accumulator, option) => ({
-        ...accumulator,
+    ...variant.selectedOptions.reduce((accumulator, option) => {
+      return Object.assign(accumulator, {
         [option.name.toLowerCase()]: option.value,
-      }),
-      {},
-    ),
+      });
+    }, {}),
   }));
 
   return options.map((option) => (
@@ -71,6 +69,7 @@ export function VariantSelector({
 
             return (
               <button
+                type="button"
                 formAction={() => {
                   const newState = updateOption(optionNameLowerCase, value);
                   updateURL(newState);
