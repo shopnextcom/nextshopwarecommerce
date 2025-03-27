@@ -221,27 +221,11 @@ export function useCart() {
   }
 
   const initialCart = use(context.cartPromise);
-  const [optimisticCart, updateOptimisticCart] = useOptimistic(
-    initialCart,
-    cartReducer,
-  );
-
-  const updateCartItem = (merchandiseId: string, updateType: UpdateType) => {
-    updateOptimisticCart({
-      type: "UPDATE_ITEM",
-      payload: { merchandiseId, updateType },
-    });
-  };
-
-  const addCartItem = (variant: ProductVariant, product: Product) => {
-    updateOptimisticCart({ type: "ADD_ITEM", payload: { variant, product } });
-  };
+  const [optimisticCart] = useOptimistic(initialCart, cartReducer);
 
   return useMemo(
     () => ({
       cart: optimisticCart,
-      updateCartItem,
-      addCartItem,
     }),
     [optimisticCart],
   );
