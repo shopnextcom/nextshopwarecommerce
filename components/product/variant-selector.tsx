@@ -69,7 +69,7 @@ export function VariantSelector({
 
             return (
               <button
-                type="button"
+                type="submit"
                 formAction={() => {
                   const newState = updateOption(optionNameLowerCase, value);
                   updateURL(newState);
