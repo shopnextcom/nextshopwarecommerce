@@ -3,8 +3,6 @@ export default {
     ppr: true,
     inlineCss: true,
     useCache: true,
-    reactOwnerStack: true,
-    newDevOverlay: true,
   },
   eslint: {
     // Disabling on production builds because we're running checks on PRs via GitHub Actions.
