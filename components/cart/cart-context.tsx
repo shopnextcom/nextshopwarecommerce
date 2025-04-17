@@ -243,6 +243,7 @@ export function useCart() {
       updateCartItem,
       addCartItem,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [optimisticCart],
   );
 }

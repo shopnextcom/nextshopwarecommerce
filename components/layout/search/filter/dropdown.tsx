@@ -26,14 +26,15 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
   }, []);
 
   useEffect(() => {
-    list.forEach((listItem: ListItem) => {
+    for (const listItem of list) {
       if (
         ("path" in listItem && pathname === listItem.path) ||
         ("slug" in listItem && searchParams.get("sort") === listItem.slug)
       ) {
         setActive(listItem.title);
+        break;
       }
-    });
+    }
   }, [pathname, list, searchParams]);
 
   return (
@@ -41,6 +42,11 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
       <div
         onClick={() => {
           setOpenSelect(!openSelect);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            setOpenSelect(!openSelect);
+          }
         }}
         className="flex w-full items-center justify-between rounded-sm border border-black/30 px-4 py-2 text-sm dark:border-white/30"
       >
@@ -52,10 +58,15 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
           onClick={() => {
             setOpenSelect(false);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.target?.dispatchEvent(new MouseEvent("click"));
+            }
+          }}
           className="absolute z-40 w-full rounded-b-md bg-white p-4 shadow-md dark:bg-black"
         >
-          {list.map((item: ListItem, i) => (
-            <FilterItem key={i} item={item} />
+          {list.map((item: ListItem) => (
+            <FilterItem key={item.title} item={item} />
           ))}
         </div>
       )}
